@@ -15,7 +15,7 @@ La bibliothèque utilisée pour la communication Ordinateur (Python) - Arduino e
   _Lancer le script python control.py.
   
 ### Branchements
-A compléter
+A compléter <br />
 
 #### --English version--
 ## Developpement project aiming to mime human hand moves with an InMoov robotic hand.
