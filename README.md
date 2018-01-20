@@ -1,6 +1,6 @@
 # InMoov
 
-## English version below
+#### --English version below--
 ## Projet de développement du mimétisme entre une main robotisée InMoov et une main humaine.
 
 ### Principe :
@@ -17,7 +17,7 @@ La bibliothèque utilisée pour la communication Ordinateur (Python) - Arduino e
 ### Branchements
 A compléter
 
-## English version
+#### --English version--
 ## Developpement project aiming to mime human hand moves with an InMoov robotic hand.
 
 ### Principle :
