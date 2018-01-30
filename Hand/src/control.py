@@ -5,6 +5,7 @@
 @file: control.py
 @author: Pierre Schegg & Yann Briançon
 @date: 2017 Oct 10
+@version: 1.0.0
 
 """
 
