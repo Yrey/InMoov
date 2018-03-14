@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 
-@file: control.py
+@file: controlDisplay.py
 @author: Pierre Schegg & Yann Briançon
-@date: 2017 Oct 10
+@date: 2017 March 15
 @version: 1.0.0
 
 """
@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(src_dir, arch_dir)))
 import Leap
 import pyfirmata
 
-from multiprocessing import Process, Pipe
+from multiprocessing import Process, Array, Lock
 
 # Adjust that the port match your system, see samples below:
 # On Linux: /dev/tty.usbserial-A6008rIF, /dev/ttyACM0, 
@@ -71,17 +71,7 @@ def correctionMinMax(distance, MinMax):
         min=distance
     return [min, max]
 
-def main():
-    # Creates a new board 
-    board = pyfirmata.Arduino(PORT)
-    
-    # set up fingers as Servo Output
-    thumb = board.get_pin('d:2:s')
-    index = board.get_pin('d:3:s')
-    middle = board.get_pin('d:4:s')
-    ring = board.get_pin('d:5:s')
-    pinky = board.get_pin('d:6:s') 
-    wrist = board.get_pin('d:10:s')  
+def work(commande, lock):
 
     controller=Leap.Controller()
     while(not controller.is_connected):
@@ -157,14 +147,24 @@ def main():
         AnglePinky = translate(distPinky,distPinky_minmax,PINKY_ANGLES, True)
         AngleWrist = translate(roll,WRIST_MINMAX_rad,WRIST_ANGLES, True)
 
+
+        lock.acquire()
         commande = [AngleThumb, AngleIndex, AngleMiddle, AngleRing, AnglePinky, AngleWrist]
-        print(commande)
-        thumb.write(AngleThumb)
-        index.write(AngleIndex)
-        middle.write(AngleMiddle)
-        ring.write(AngleRing)
-        pinky.write(AnglePinky)
-        wrist.write(AngleWrist)
+        lock.release()
+        time.sleep(0.01)
+
+def com(cmd, lock):
+    while True:
+        lock.acquire()
+        for i in range(len(cmd)):
+            cmd[i] = cmd[i]+1
+        lock.release()
+        time.sleep(0.01)
+
+def main():
+    print(1)
+    while True:
+        commande+=1
 
 if __name__ == '__main__':
     main()
