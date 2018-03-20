@@ -15,7 +15,13 @@ La bibliothèque utilisée pour la communication Ordinateur (Python) - Arduino e
   _Lancer le script python control.py.
   
 ### Branchements
-A compléter <br />
+Les branchements des servos sont fais comme ci-dessous :
+    _pouce => digital pin 2
+    _index => digital pin 3
+    _majeur=> digital pin 4
+    _annulaire => digital pin 5
+    _auriculaire => digital pin 6
+    _poignet => digital pin 10 <br />
 
 #### --English version--
 ## Developpement project aiming to mime human hand moves with an InMoov robotic hand.
@@ -32,4 +38,10 @@ The library used to send data between the computer (Python) and the Arduino is p
   _Launch the Python script control.py.
   
 ### Hardware
-To complete
+The connections of the servos are made as below:
+    _thumb => digital pin 2
+    _index => digital pin 3
+    _middle => digital pin 4
+    _ring => digital pin 5
+    _pinky => digital pin 6
+    _wrist => digital pin 10 <br />
