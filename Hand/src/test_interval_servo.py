@@ -7,6 +7,7 @@
 @date: 2017 Oct 10
 @version: 1.0.0
 
+Write the values of the interval [0, 180] on a defined pin
 """
 
 import os, sys, inspect, time
@@ -33,18 +34,13 @@ def main():
     # set up finger as Servo Output
     servo = board.get_pin('d:' + str(PIN) + ':s')  
 
-    # for i in range(0, 190, 10):
-    #     print(i)
-    #     beginning = time.time()
+    for i in range(0, 190, 10):
+        print(i)
+        beginning = time.time()
 
-    #     # Wait 1 second to see the effects of the command
-    #     while(time.time() - beginning < 1):
-    #         servo.write(i)
-    print("Begin")
-    while(True):
-        servo.write(55)
-    print("End")
-
+        # Wait 1 second to see the effects of the command
+        while(time.time() - beginning < 1):
+            servo.write(i)
 
 if __name__ == '__main__':
     main()

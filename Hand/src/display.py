@@ -9,6 +9,8 @@
 @version: 1.0.0
 Use wxPython 4.0
 
+Launch the work function in controlDisplay.py in a new process
+Display a graphic interface of the command variable
 """
 
 
@@ -26,7 +28,7 @@ import argparse
 
 
 from multiprocessing import Process, Lock, Array
-from testDisplay import com
+from controlDisplay import work
 
 
 
@@ -40,7 +42,7 @@ class Visualizer(wx.Frame):
         self.lock = Lock()
         self.cmd = Array('i', range(6))
         #self.parent_conn, child_conn = Pipe()
-        p = Process(target=com, args=(self.cmd, self.lock,))
+        p = Process(target=work, args=(self.cmd, self.lock,))
         p.start()
             
         self.InitUI()
@@ -139,7 +141,7 @@ class Visualizer(wx.Frame):
         self.stPinkyAngle.SetLabel("Angle : " + str(self.cmd[4]))
         self.stWristAngle.SetLabel("Angle : " + str(self.cmd[5]))
         self.lock.release()
-        self.timer.Start(500)
+        self.timer.Start(200)
 
 
 if __name__ == '__main__':

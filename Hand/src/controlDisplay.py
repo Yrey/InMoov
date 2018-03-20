@@ -7,9 +7,13 @@
 @date: 2017 March 15
 @version: 1.0.0
 
+Used only in display.py, do not launch alone.
+Describe the functions to create the right command from the leap data.
+If you want to write the command to arduino and graphic interface launching display.py,
+you must add the arduino part that is in comments.
 """
 
-import os, sys, inspect, math
+import os, sys, inspect, math, time
 src_dir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 arch_dir = '../lib/x64' if sys.maxsize > 2**32 else '../lib/x86'
 sys.path.insert(0, os.path.abspath(os.path.join(src_dir, arch_dir)))
@@ -19,10 +23,11 @@ import pyfirmata
 
 from multiprocessing import Process, Array, Lock
 
-# Adjust that the port match your system, see samples below:
-# On Linux: /dev/tty.usbserial-A6008rIF, /dev/ttyACM0, 
-# On Windows: \\.\COM1, \\.\COM2
-PORT = '/dev/ttyACM0'
+### Uncomment to use arduino board
+## Adjust that the port match your system, see samples below:
+## On Linux: /dev/tty.usbserial-A6008rIF, /dev/ttyACM0, 
+## On Windows: \\.\COM1, \\.\COM2
+#PORT = '/dev/ttyACM0'
 
 # Set angle interval for each servo-motor
 THUMB_ANGLES = [0, 180]
@@ -73,6 +78,18 @@ def correctionMinMax(distance, MinMax):
 
 def work(commande, lock):
 
+    ### Uncomment to use arduino board
+    ### Creates a new board 
+    # board = pyfirmata.Arduino(PORT)
+    
+    ### set up fingers as Servo Output
+    # thumb = board.get_pin('d:2:s')
+    # index = board.get_pin('d:3:s')
+    # middle = board.get_pin('d:4:s')
+    # ring = board.get_pin('d:5:s')
+    # pinky = board.get_pin('d:6:s') 
+    # wrist = board.get_pin('d:10:s')
+
     controller=Leap.Controller()
     while(not controller.is_connected):
         print("Waiting for connection")
@@ -105,9 +122,7 @@ def work(commande, lock):
 
             ###Recuperation des objets
             MatHand = getPosHand(hand)
-            #print(MatHand)
             MatThumb = getPosFinger(hand.fingers,0)
-            #print(MatThumb)
             MatIndex = getPosFinger(hand.fingers,1)
             MatMiddle = getPosFinger(hand.fingers,2)
             MatRing = getPosFinger(hand.fingers,3)
@@ -115,16 +130,15 @@ def work(commande, lock):
         
             ###Calcul distances
             distThumb += getDistFinger(MatHand,MatThumb)
-            #print(distThumb)
             distIndex += getDistFinger(MatHand,MatIndex)
             distMiddle += getDistFinger(MatHand,MatMiddle)
             distRing += getDistFinger(MatHand,MatRing)
             distPinky += getDistFinger(MatHand,MatPinky)
 
             count += 1
+            time.sleep(0.05)
             
         distThumb /= count
-        #print(distThumb)
         distIndex /= count
         distMiddle /= count
         distRing /= count
@@ -137,7 +151,6 @@ def work(commande, lock):
         distMiddle_minmax = correctionMinMax(distMiddle,distMiddle_minmax)
         distRing_minmax = correctionMinMax(distRing,distRing_minmax)
         distPinky_minmax = correctionMinMax(distPinky,distPinky_minmax)
-        print distIndex_minmax
         
         ###Calcul commande
         AngleThumb = translate(distThumb,distThumb_minmax,THUMB_ANGLES, True)
@@ -149,22 +162,19 @@ def work(commande, lock):
 
 
         lock.acquire()
-        commande = [AngleThumb, AngleIndex, AngleMiddle, AngleRing, AnglePinky, AngleWrist]
+        commande[0] = int(AngleThumb)
+        commande[1] = int(AngleIndex)
+        commande[2] = int(AngleMiddle)
+        commande[3] = int(AngleRing)
+        commande[4] = int(AnglePinky)
+        commande[5] = int(AngleWrist)
         lock.release()
-        time.sleep(0.01)
 
-def com(cmd, lock):
-    while True:
-        lock.acquire()
-        for i in range(len(cmd)):
-            cmd[i] = cmd[i]+1
-        lock.release()
-        time.sleep(0.01)
-
-def main():
-    print(1)
-    while True:
-        commande+=1
-
-if __name__ == '__main__':
-    main()
+        ### Uncomment to use arduino board
+        # thumb.write(AngleThumb)
+        # index.write(AngleIndex)
+        # middle.write(AngleMiddle)
+        # ring.write(AngleRing)
+        # pinky.write(AnglePinky)
+        # wrist.write(AngleWrist)
+        time.sleep(0.05)

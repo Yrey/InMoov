@@ -7,6 +7,8 @@
 @date: 2017 Oct 10
 @version: 1.0.0
 
+Describe the functions to create the right command from the leap data.
+Write the command to an arduino board.
 """
 
 import os, sys, inspect, math

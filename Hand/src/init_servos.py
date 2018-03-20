@@ -3,11 +3,12 @@
 
 """
 
-@file: test_interval_servo.py
+@file: init_servos.py
 @author: Pierre Schegg & Yann Briançon
 @date: 2017 Oct 10
 @version: 1.0.0
 
+Initialize the servos at a defined value
 """
 
 import os, sys, inspect, time

@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Éditeur de Spyder
 
-Ceci est un script temporaire.
+@file: ForceSense.py
+@author: Pierre Schegg & Yann Briançon
+@date: 2017 Oct 10
+@version: 1.0.0
+
+Test of a force sense.
 """
+
 import signal
 import sys
 import time
