@@ -41,9 +41,8 @@ class Visualizer(wx.Frame):
             size=(390, 350))
         self.lock = Lock()
         self.cmd = Array('i', range(6))
-        #self.parent_conn, child_conn = Pipe()
-        p = Process(target=work, args=(self.cmd, self.lock,))
-        p.start()
+        self.p = Process(target=work, args=(self.cmd, self.lock, ))
+        self.p.start()
             
         self.InitUI()
         self.SetSizeHints(550, 250, 550, 250)
@@ -131,6 +130,7 @@ class Visualizer(wx.Frame):
         self.timer = wx.Timer(self)
         self.timer.Start(500)
         self.Bind(wx.EVT_TIMER, self.Update, self.timer)
+        self.Bind(wx.EVT_CLOSE, self.OnClose)
 
     def Update(self, event):
         self.lock.acquire()
@@ -142,6 +142,13 @@ class Visualizer(wx.Frame):
         self.stWristAngle.SetLabel("Angle : " + str(self.cmd[5]))
         self.lock.release()
         self.timer.Start(200)
+
+
+    def OnClose(self, event):
+        """Close the frame, terminating the application."""
+        self.p.terminate()
+        self.p.join()
+        self.Destroy()
 
 
 if __name__ == '__main__':
