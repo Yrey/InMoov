@@ -11,7 +11,7 @@ Describe the functions to create the right command from the leap data.
 Write the command to an arduino board.
 """
 
-import os, sys, inspect, math
+import os, sys, inspect, math, time
 src_dir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 arch_dir = '../lib/x64' if sys.maxsize > 2**32 else '../lib/x86'
 sys.path.insert(0, os.path.abspath(os.path.join(src_dir, arch_dir)))
@@ -134,6 +134,7 @@ def main():
             distPinky += getDistFinger(MatHand,MatPinky)
 
             count += 1
+            time.sleep(0.05)
             
         distThumb /= count
         #print(distThumb)
@@ -167,6 +168,7 @@ def main():
         ring.write(AngleRing)
         pinky.write(AnglePinky)
         wrist.write(AngleWrist)
+        time.sleep(0.05)
 
 if __name__ == '__main__':
     main()
