@@ -15,13 +15,13 @@ La bibliothèque utilisée pour la communication Ordinateur (Python) - Arduino e
   _Lancer le service leapd<br />
   _Charger le code arduino StandardFirmata.ino (disponible dans inmoov/Hand/lib/StandardFirmata/) dans l'arduino.<br />
   _Modifier dans le script python control.py  (disponible dans inmoov/Hand/src/) le port de l'arduino avec celui correspondant à votre configuration.<br />
-  _Lancer le script python control.py.
+  _Lancer le script python control.py (disponible dans inmoov/Hand/src/).
   
 #### Visualisation des commandes 
 (nécessite wxPython 4 : voir Install_wxPython4.txt)<br />
   _Brancher le Leap Motion<br />
   _Lancer le service leapd<br />
-  _Lancer le script python display.py.
+  _Lancer le script python display.py (disponible dans inmoov/Hand/src/).
 
 ### Branchements
 Les branchements des servos sont fais comme ci-dessous : <br />
@@ -47,13 +47,13 @@ The library used to send data between the computer (Python) and the Arduino is p
   _Launch the service leapd<br />
   _Load the Arduino script StandardFirmata.ino (available in inmoov/Hand/lib/StandardFirmata/) in the Arduino.<br />
   _Modify in the Python script control.py  (available in inmoov/Hand/src/) The Arduino port with the one matching your configuration.<br />
-  _Launch the Python script control.py.
+  _Launch the Python script control.py (available in inmoov/Hand/src/).
   
 #### Display the commands
 (need wxPython 4 : see Install_wxPython4.txt)<br />
   _Connect the Leap Motion<br />
   _Launch the service leapd<br />
-  _Launch the Python script display.py.
+  _Launch the Python script display.py (available in inmoov/Hand/src/).
   
 ### Hardware
 The connections of the servos are made as below: <br />
