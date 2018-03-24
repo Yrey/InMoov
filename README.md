@@ -17,7 +17,8 @@ La bibliothèque utilisée pour la communication Ordinateur (Python) - Arduino e
   _Modifier dans le script python control.py  (disponible dans inmoov/Hand/src/) le port de l'arduino avec celui correspondant à votre configuration.<br />
   _Lancer le script python control.py.
   
-#### Visualisation des commandes
+#### Visualisation des commandes 
+(nécessite wxPython 4 : voir Install_wxPython4.txt)<br />
   _Brancher le Leap Motion<br />
   _Lancer le service leapd<br />
   _Lancer le script python display.py.
@@ -49,6 +50,7 @@ The library used to send data between the computer (Python) and the Arduino is p
   _Launch the Python script control.py.
   
 #### Display the commands
+(need wxPython 4 : see Install_wxPython4.txt)<br />
   _Connect the Leap Motion<br />
   _Launch the service leapd<br />
   _Launch the Python script display.py.
